@@ -1,0 +1,132 @@
+---
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  vars:
+    #flyctl_version: "0.1.130"
+    #pulumi_version: "v3.94.2"
+
+  tasks:
+    - name: Get my user
+      ansible.builtin.set_fact:
+        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+
+    - name: Install packages
+      ansible.builtin.apt:
+        name:
+          - curl
+          - git
+          - lazygit
+          - alacritty
+          - neovim
+          - lazydocker
+          - btop
+          - vim
+          - ripgrep
+          - zsh
+          - fzf
+          - tmux
+          - make
+          - patch
+          - ranger
+          - nethogs
+          - posting
+          - dua
+        state: present
+
+    - name: install gui apps
+      ansible.builtin.apt:
+        name:
+         - inkscape
+      state: present
+
+    - name: Change shell to zsh
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        shell: /usr/bin/zsh
+
+    - name: Install Docker
+      ansible.builtin.dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+
+    - name: Add Docker group
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        groups: docker
+        append: true
+
+    - name: add ddev gpg key 
+      ansible.builtin.get_url:
+        url: https://pkg.ddev.com/apt/gpg.key
+        dest: /etc/apt/keyrings/ddev.gpg
+
+    - name: add ddev repo 
+      ansible.builtin.apt_repository:
+        name: ddev
+        description: ddev repo
+        repo: deb [signed-by=/etc/apt/keyrings/ddev.gpg] https://pkg.ddev.com/apt/ * * 
+        state: present
+    
+    - name: install ddev
+      ansible.builtin.apt:
+        name: 
+          - ddev
+        state: present
+
+    - name: add brave-browser gpg key 
+      ansible.builtin.get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg 
+        dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+
+    - name: add brave-browser repo 
+      ansible.builtin.get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+        dest: /etc/apt/sources.list.d/brave-browser-release.sources
+    
+    - name: install brave-browser
+      ansible.builtin.apt:
+        name: 
+          - brave-browser
+        state: present
+
+
+    - name: install snap packages
+      community.general.snap:
+        name:
+         - firefox
+         - gimp       
+
+    - name: Ensure fonts directory
+      ansible.builtin.file:
+        path: "~{{ remote_regular_user }}/.fonts"
+        state: directory
+        mode: "0755"
+        owner: "{{ remote_regular_user }}"
+
+    - name: Check if Jetbrains Mono exists
+      ansible.builtin.shell: "ls ~{{ remote_regular_user }}/.fonts/JetBrainsMonoNerd*FontMono*"
+      register: jetbrains_mono_exists
+      ignore_errors: true
+      changed_when: false
+
+    - name: Download Jetbrains mono
+      when: jetbrains_mono_exists is failed
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+        dest: "~{{ remote_regular_user }}/.fonts/"
+        remote_src: true
+        mode: "0755"
+        owner: "{{ remote_regular_user }}"

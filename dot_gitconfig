@@ -1,0 +1,16 @@
+[user]
+	name = jevdheyd
+	email = jensvanderheyden@vubbe
+[cola]
+	spellcheck = false
+	startupmode = folder
+[diff]
+	tool = kdiff3
+[merge]
+	tool = kdiff3
+[core]
+	autocrlf = input
+[gui]
+	editor = kate
+[init]
+	defaultBranch = main
