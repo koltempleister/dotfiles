@@ -4,9 +4,6 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
-[".oh-my-zsh-custom"]
-    type = "git-repo"
-    url = "git@github.com:koltempleister/oh-my-zsh-custom.git"
 ["wiki"]
     type = "git-repo"
     url = "git@github.com:koltempleister/wiki.git"
