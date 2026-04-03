@@ -1,3 +1,5 @@
 #!/bin/sh
 
+export BW_SESSION=$(bw login {{ .bitwardenEmail }} --raw)
+
 git clone https://koltempleister@gmail.com:{{ (bitwarden "item" "github.com general repo token").login.password }}/oh-my-zsh-custom.git ~/.oh-my-zsh-custom 

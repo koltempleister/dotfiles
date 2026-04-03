@@ -4,5 +4,5 @@
 
 if command -v ansible-playbook &> /dev/null; then
     echo 'run ansible-playbook'
-    ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_bootstrap/setup.yml" | quote }} --ask-become-pass
+ #   sudo ansible-playbook {{ joinPath .chezmoi.sourceDir "dot_bootstrap/setup.yml" | quote }}
 fi

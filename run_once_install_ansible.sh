@@ -15,6 +15,6 @@ install_on_mac() {
 #uncomment when ready
 install_on_ubuntu
 
-#ansible-playbook ~/.bootstrap/setup.yml --ask-become-pass
+#sudo ansible-playbook ~/.bootstrap/setup.yml
 
 echo "Ansible installation complete."

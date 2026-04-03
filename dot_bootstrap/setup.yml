@@ -1,12 +1,8 @@
 ---
 - name: Machine setup
   hosts: localhost
-  become: true
   connection: local
   gather_facts: true
-  vars:
-    #flyctl_version: "0.1.130"
-    #pulumi_version: "v3.94.2"
 
   tasks:
     - name: Get my user
@@ -21,7 +17,7 @@
           - lazygit
           - alacritty
           - neovim
-          - lazydocker
+          #- lazydocker
           - btop
           - vim
           - ripgrep
@@ -32,15 +28,12 @@
           - patch
           - ranger
           - nethogs
-          - posting
-          - dua
+          #- posting
+          #- dua
+          - inkscape
+          - snap
         state: present
 
-    - name: install gui apps
-      ansible.builtin.apt:
-        name:
-         - inkscape
-      state: present
 
     - name: Change shell to zsh
       ansible.builtin.user:
@@ -48,7 +41,7 @@
         shell: /usr/bin/zsh
 
     - name: Install Docker
-      ansible.builtin.dnf:
+      ansible.builtin.apt:
         name:
           - docker-ce
           - docker-ce-cli
@@ -75,8 +68,6 @@
 
     - name: add ddev repo 
       ansible.builtin.apt_repository:
-        name: ddev
-        description: ddev repo
         repo: deb [signed-by=/etc/apt/keyrings/ddev.gpg] https://pkg.ddev.com/apt/ * * 
         state: present
     
@@ -107,7 +98,8 @@
       community.general.snap:
         name:
          - firefox
-         - gimp       
+         - gimp
+         - bw
 
     - name: Ensure fonts directory
       ansible.builtin.file:
@@ -122,7 +114,7 @@
       ignore_errors: true
       changed_when: false
 
-    - name: Download Jetbrains mono
+    - name: Download Jetbrains mono nerdfont
       when: jetbrains_mono_exists is failed
       ansible.builtin.unarchive:
         src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
@@ -130,3 +122,7 @@
         remote_src: true
         mode: "0755"
         owner: "{{ remote_regular_user }}"
+
+  #@todo instal posting 
+  #@todo instal lazydocker 
+  #@todo install dua
