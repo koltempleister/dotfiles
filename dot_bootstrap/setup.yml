@@ -17,7 +17,6 @@
           - lazygit
           - alacritty
           - neovim
-          #- lazydocker
           - btop
           - vim
           - ripgrep
@@ -28,10 +27,7 @@
           - patch
           - ranger
           - nethogs
-          #- posting
-          #- dua
           - inkscape
-          - snap
         state: present
 
 
@@ -92,14 +88,6 @@
         name: 
           - brave-browser
         state: present
-
-
-    - name: install snap packages
-      community.general.snap:
-        name:
-         - firefox
-         - gimp
-         - bw
 
     - name: Ensure fonts directory
       ansible.builtin.file:

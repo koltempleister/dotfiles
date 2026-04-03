@@ -9,7 +9,7 @@
     url = "git@github.com:koltempleister/wiki.git"
 ["displaylink-debian"]
     type = "git-repo"
-    url = "git@github.com:AdnanHodzic/displaylink-debian.git"
+    url = "https://github.com/AdnanHodzic/displaylink-debian.git"
 [".tmux/plugins/tpm"]
     type="git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
@@ -18,7 +18,7 @@
     url = "https://github.com/catppuccin/tmux.git"
 [".tmux/plugins/tmux-battery"]
     type = "git-repo"
-    url = "git@github.com:tmux-plugins/tmux-battery.git"
+    url = "https://github.com/tmux-plugins/tmux-battery.git"
 [".tmux/plugins/tmux-cpu"]
     type = "git-repo"
-    url = "git@github.com:tmux-plugins/tmux-cpu.git"
+    url = "https://github.com/tmux-plugins/tmux-cpu.git"
