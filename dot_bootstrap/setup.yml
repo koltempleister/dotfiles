@@ -77,11 +77,18 @@
         groups: docker
         append: true
 
-    - name: add ddev gpg key 
-      ansible.builtin.get_url:
+    - name: Download DDEV GPG key
+      get_url:
         url: https://pkg.ddev.com/apt/gpg.key
-        dest: /etc/apt/keyrings/ddev.gpg
+        dest: /tmp/ddev.gpg
         mode: '0644'
+
+    - name: Add DDEV GPG key to keyring
+      shell: |
+        gpg --dearmor /tmp/ddev.gpg | tee /etc/apt/keyrings/ddev.gpg > /dev/null
+        chmod a+r /etc/apt/keyrings/ddev.gpg
+      args:
+        creates: /etc/apt/keyrings/ddev.gpg
 
     - name: Add DDEV repository to sources list
       lineinfile:
