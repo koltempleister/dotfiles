@@ -8,28 +8,33 @@
     - name: Get my user
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
-
-    - name: Install packages
-      ansible.builtin.apt:
-        name:
-          - curl
-          - git
-          - lazygit
-          - alacritty
-          - neovim
-          - btop
-          - vim
-          - ripgrep
-          - zsh
-          - fzf
-          - tmux
-          - make
-          - patch
-          - ranger
-          - nethogs
-          - inkscape
-        state: present
-
+    - name: install packages with error handling
+      block:  
+        - name: Install packages
+          ansible.builtin.apt:
+            name:
+              - curl
+              - git
+              - lazygit
+              - alacritty
+              - neovim
+              - btop
+              - vim
+              - ripgrep
+              - zsh
+              - fzf
+              - tmux
+              - make
+              - patch
+              - ranger
+              - nethogs
+              - inkscape
+            state: present
+            update_cache: yes
+      rescue:
+        - name: Handle missing packages
+          debug:
+            msg: "Some packages where not found or installed."
 
     - name: Change shell to zsh
       ansible.builtin.user:
