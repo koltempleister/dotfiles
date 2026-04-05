@@ -121,8 +121,8 @@ export PATH="$PATH:$PYENV_ROOT/bin"
 export PATH="$PATH:$SONAR_ROOT/bin"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
-eval "$(pyenv init - )"
-eval "$(pyenv virtualenv-init - )"
+#eval "$(pyenv init - )"
+#eval "$(pyenv virtualenv-init - )"
 
 #dagger autocompletion
 autoload -U compinit
