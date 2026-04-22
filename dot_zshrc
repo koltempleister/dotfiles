@@ -99,7 +99,6 @@ source $HOME/.oh-my-zsh.sh
 
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-export BW_SESSION=$(bw login $BITWARDEN_EMAIL --raw)
 
 export SONAR_ROOT=$HOME/sonar-scanner-7.2.0.5079-linux-x64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/i386-linux-gnu
@@ -129,4 +128,12 @@ eval "$(pyenv virtualenv-init - )"
 autoload -U compinit
 compinit -i
 
-tmux
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+    exec tmux
+fi   
