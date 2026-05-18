@@ -111,6 +111,14 @@
 
     #install sesh tmux sessions manager with homebrew
         #https://github.com/joshmedeski/sesh
+    - name: Install Docker
+      community.general.homebrew:
+        path: ~/linuxbrew/bin
+        name:
+          - sesh
+          - zoxide
+          - gonzo
+        state: present
 
     - name: Ensure fonts directory
       ansible.builtin.file:
