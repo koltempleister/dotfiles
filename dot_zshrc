@@ -124,16 +124,26 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 #eval "$(pyenv init - )"
 #eval "$(pyenv virtualenv-init - )"
 
+#homebrew 
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
+
+
 #dagger autocompletion
 autoload -U compinit
 compinit -i
 
+#zoxide 
+eval "$(zoxide init zsh)"
+
+# start tmux
+if [ -z "$TMUX" ]; then
+    tmux attach -t my-session 2>/dev/null || tmux new-session -d -s my-session
+    tmux attach -t my-session
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-    exec tmux
-fi   

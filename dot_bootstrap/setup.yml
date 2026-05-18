@@ -128,12 +128,46 @@
           - brave-browser
         state: present
 
+    - name: Check if Homebrew is installed
+      ansible.builtin.stat:
+        path: /opt/homebrew/bin/brew
+      register: homebrew_check
+
+    - name: Create Homebrew directory
+      ansible.builtin.file:
+        path: /home/linuxbrew/.linuxbrew
+        state: directory
+        owner: "{{ ansible_env.USER }}"
+        group: "{{ ansible_env.USER }}"
+        mode: '0755'
+    
+    - name: install homebrew
+      ansible.builtin.shell:
+        cmd: curl -fsSL https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C /home/linuxbrew/.linuxbrew
+      when: not brew_stat.stat.exists
+      environment:
+        PATH: "/home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}"
+
+    #install sesh tmux sessions manager with homebrew
+        #https://github.com/joshmedeski/sesh
+    - name: Install Docker
+      community.general.homebrew:
+        path: ~/linuxbrew/bin
+        name:
+          - sesh
+          - zoxide
+          - gonzo
+        state: present
+
     - name: Ensure fonts directory
       ansible.builtin.file:
         path: "~{{ remote_regular_user }}/.fonts"
         state: directory
         mode: "0755"
         owner: "{{ remote_regular_user }}"
+
+    #install sesh tmux session manager with brew https://github.com/joshmedeski/sesh 
+    #install zoxide with brew https://github.com/ajeetdsouza/zoxide
 
     - name: Check if Jetbrains Mono exists
       ansible.builtin.shell: "ls ~{{ remote_regular_user }}/.fonts/JetBrainsMonoNerd*FontMono*"
