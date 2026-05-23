@@ -13,12 +13,12 @@
 [".tmux/plugins/tpm"]
     type="git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
-[".tmux/plugins/catpuccin/tmux"]
-    type = "git-repo"
-    url = "https://github.com/catppuccin/tmux.git"
-[".tmux/plugins/tmux-battery"]
-    type = "git-repo"
-    url = "https://github.com/tmux-plugins/tmux-battery.git"
-[".tmux/plugins/tmux-cpu"]
-    type = "git-repo"
-    url = "https://github.com/tmux-plugins/tmux-cpu.git"
+# [".tmux/plugins/catpuccin/tmux"]
+#     type = "git-repo"
+#     url = "https://github.com/catppuccin/tmux.git"
+# [".tmux/plugins/tmux-battery"]
+#     type = "git-repo"
+#     url = "https://github.com/tmux-plugins/tmux-battery.git"
+# [".tmux/plugins/tmux-cpu"]
+#     type = "git-repo"
+    # url = "https://github.com/tmux-plugins/tmux-cpu.git"
