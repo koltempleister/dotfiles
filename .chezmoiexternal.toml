@@ -4,21 +4,22 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
-["wiki"]
+[".tmux/plugins/catppuccin/tmux"]
     type = "git-repo"
-    url = "git@github.com:koltempleister/wiki.git"
+    url = "https://github.com/catppuccin/tmux.git"
+[".tmux/plugins/tmux-battery"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tmux-battery.git"
+[".tmux/plugins/tmux-cpu"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tmux-cpu.git"
 ["displaylink-debian"]
     type = "git-repo"
     url = "https://github.com/AdnanHodzic/displaylink-debian.git"
 [".tmux/plugins/tpm"]
     type="git-repo"
     url = "https://github.com/tmux-plugins/tpm.git"
-# [".tmux/plugins/catpuccin/tmux"]
-#     type = "git-repo"
-#     url = "https://github.com/catppuccin/tmux.git"
-# [".tmux/plugins/tmux-battery"]
-#     type = "git-repo"
-#     url = "https://github.com/tmux-plugins/tmux-battery.git"
-# [".tmux/plugins/tmux-cpu"]
-#     type = "git-repo"
-    # url = "https://github.com/tmux-plugins/tmux-cpu.git"
+["wiki"]
+    type = "git-repo"
+    url = "git@github.com:koltempleister/wiki.git"
+

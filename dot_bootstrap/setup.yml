@@ -199,7 +199,7 @@
     #install zoxide with brew https://github.com/ajeetdsouza/zoxide
 
     - name: Check if Jetbrains Mono exists
-      ansible.builtin.shell: "ls ~{{ remote_regular_user }}/.fonts/JetBrainsMonoNerd*FontMono*"
+      ansible.builtin.shell: "ls ~/.fonts/JetBrainsMonoNerdFont*"
       register: jetbrains_mono_exists
       ignore_errors: true
       changed_when: false
