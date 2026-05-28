@@ -3,7 +3,7 @@
 
  #Path to your oh-my-zsh installation.
 
-  export ZSH=/home/jevdheyd/oh-my-zsh
+  export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -121,8 +121,8 @@ export PATH="$PATH:$PYENV_ROOT/bin"
 export PATH="$PATH:$SONAR_ROOT/bin"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
-eval "$(pyenv init - )"
-eval "$(pyenv virtualenv-init - )"
+#eval "$(pyenv init - )"
+#eval "$(pyenv virtualenv-init - )"
 
 #homebrew 
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"

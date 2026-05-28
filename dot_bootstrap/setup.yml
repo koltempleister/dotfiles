@@ -4,52 +4,132 @@
   connection: local
   gather_facts: true
 
+  vars:
+    # Defines the default system path where Linuxbrew is installed
+    brew_dir: "/home/linuxbrew/.linuxbrew"
+
   tasks:
+    - name: print all variables
+      debug:
+        msg: "User is {{ansible_env.USER  }}, sudo user is {{ ansible_env.SUDO_USER }}, home is {{lookup('env', 'HOME')}}"
     - name: Get my user
       ansible.builtin.set_fact:
-        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+        remote_regular_user: jevdheyd 
+    - name: install packages with error handling
+      block:  
+        - name: Install packages
+          ansible.builtin.apt:
+            name:
+              - build-essential
+              - curl
+              - git
+              - lazygit
+              - tar
+              - alacritty
+              - btop
+              - vim
+              - ripgrep
+              - zsh
+              - fzf
+              - tmux
+              - make
+              - patch
+              - ranger
+              - nethogs
+              - inkscape
+            state: present
+            update_cache: yes
+      rescue:
+        - name: Handle missing packages
+          debug:
+            msg: "Some packages where not found or installed."
 
-    - name: Install packages
-      ansible.builtin.apt:
-        name:
-          - curl
-          - git
-          - lazygit
-          - alacritty
-          - neovim
-          - btop
-          - vim
-          - ripgrep
-          - zsh
-          - fzf
-          - tmux
-          - make
-          - patch
-          - ranger
-          - nethogs
-          - inkscape
-        state: present
+    - name: Check if Linuxbrew is already installed
+      ansible.builtin.stat:
+        path: "{{ brew_dir }}/bin/brew"
+      register: brew_stat
 
+    - name: Create Homebrew directory
+      ansible.builtin.file:
+        path: "/home/linuxbrew/.linuxbrew"
+        state: directory
+        owner: "{{ remote_regular_user}}"
+        group: "{{ remote_regular_user }}"
+        mode: '0755'
+      when: not brew_stat.stat.exists
+      become: true
+
+    - name: Securely download and run the official Homebrew installation script
+      ansible.builtin.shell: |
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
+      environment:
+        NONINTERACTIVE: "1"
+      when: not brew_stat.stat.exists
+      become: true
+      become_user: "{{ remote_regular_user  }}"
+
+    - name: Ensure Linuxbrew environment variables are added to shell profile
+      ansible.builtin.blockinfile:
+        path: "~/.bashrc"
+        block: |
+          eval "$({{ brew_dir }}/bin/brew shellenv)"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK: Linuxbrew shell env"
+        create: true
+        mode: '0644'
+
+    #- name: Verify that brew path works in this run
+    #  ansible.builtin.command: "{{ brew_dir }}/bin/brew doctor"
+    #  changed_when: false
+    #  become: true
+    #  become_user: "{{ remote_regular_user }}"
+
+    - name: Install Brew packages
+      block:  
+        - name: install packages
+          community.general.homebrew:
+            name:
+              - nvim
+              - sesh
+              - zoxide
+              - gonzo
+            update_homebrew: true
+      become: true
+      become_user: "{{ remote_regular_user }}"
 
     - name: Change shell to zsh
       ansible.builtin.user:
         name: "{{ remote_regular_user }}"
         shell: /usr/bin/zsh
-
-    - name: Install Docker
+    
+    - name: Install prerequisites
       ansible.builtin.apt:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-buildx-plugin
-          - docker-compose-plugin
+        name: ["apt-transport-https", "ca-certificates", "curl", "gnupg"]
         state: present
+        update_cache: yes
 
-    - name: Add Docker group
-      ansible.builtin.group:
-        name: docker
+    - name: Create directory for Docker GPG key
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: "0755"
+
+    - name: Download Docker GPG key
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: "0644"
+
+    - name: Add Docker repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
         state: present
+        filename: docker
+
+    - name: Install Docker Engine and Compose
+      ansible.builtin.apt:
+        name: ["docker-ce", "docker-ce-cli", "containerd.io", "docker-compose-plugin"]
+        state: present
+        update_cache: yes   
 
     - name: Add user to docker group
       ansible.builtin.user:
@@ -57,69 +137,57 @@
         groups: docker
         append: true
 
-    - name: add ddev gpg key 
-      ansible.builtin.get_url:
-        url: https://pkg.ddev.com/apt/gpg.key
-        dest: /etc/apt/keyrings/ddev.gpg
+#    - name: Download DDEV GPG key
+#      get_url:
+#        url: https://pkg.ddev.com/apt/gpg.key
+#        dest: /tmp/ddev.gpg
+#        mode: '0644'
+#
+#    - name: Add DDEV GPG key to keyring
+#      shell: |
+#        gpg --dearmor /tmp/ddev.gpg | tee /etc/apt/keyrings/ddev.gpg > /dev/null
+#        chmod a+r /etc/apt/keyrings/ddev.gpg
+#      args:
+#        creates: /etc/apt/keyrings/ddev.gpg
+#
+#    - name: Add DDEV repository to sources list
+#      lineinfile:
+#        path: /etc/apt/sources.list.d/ddev.list
+#        line: 'deb [signed-by=/etc/apt/keyrings/ddev.gpg] https://pkg.ddev.com/apt/ * *'
+#        create: yes
+#        mode: '0644'
+#
+#    - name: Update apt cache
+#      apt:
+#        update_cache: yes
+#        cache_valid_time: 3600
+#
+#    - name: Install DDEV
+#      apt:
+#        name: ddev
+#        state: present
 
-    - name: add ddev repo 
-      ansible.builtin.apt_repository:
-        repo: deb [signed-by=/etc/apt/keyrings/ddev.gpg] https://pkg.ddev.com/apt/ * * 
-        state: present
-    
-    - name: install ddev
-      ansible.builtin.apt:
-        name: 
-          - ddev
-        state: present
+#    - name: Install mkcert for SSL certificates (one-time)
+#      command: mkcert -install
+#      become: yes
+#      changed_when: false
 
-    - name: add brave-browser gpg key 
-      ansible.builtin.get_url:
-        url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg 
-        dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
-
-    - name: add brave-browser repo 
-      ansible.builtin.get_url:
-        url: https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
-        dest: /etc/apt/sources.list.d/brave-browser-release.sources
-    
-    - name: install brave-browser
-      ansible.builtin.apt:
-        name: 
-          - brave-browser
-        state: present
-
-    - name: Check if Homebrew is installed
-      ansible.builtin.stat:
-        path: /opt/homebrew/bin/brew
-      register: homebrew_check
-
-    - name: Create Homebrew directory
-      ansible.builtin.file:
-        path: /home/linuxbrew/.linuxbrew
-        state: directory
-        owner: "{{ ansible_env.USER }}"
-        group: "{{ ansible_env.USER }}"
-        mode: '0755'
-    
-    - name: install homebrew
-      ansible.builtin.shell:
-        cmd: curl -fsSL https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C /home/linuxbrew/.linuxbrew
-      when: not brew_stat.stat.exists
-      environment:
-        PATH: "/home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}"
-
-    #install sesh tmux sessions manager with homebrew
-        #https://github.com/joshmedeski/sesh
-    - name: Install Docker
-      community.general.homebrew:
-        path: ~/linuxbrew/bin
-        name:
-          - sesh
-          - zoxide
-          - gonzo
-        state: present
-
+#    - name: add brave-browser gpg key 
+#      ansible.builtin.get_url:
+#        url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg 
+#        dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+#
+#    - name: add brave-browser repo 
+#      ansible.builtin.get_url:
+#        url: https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+#        dest: /etc/apt/sources.list.d/brave-browser-release.sources
+#    
+#    - name: install brave-browser
+#      ansible.builtin.apt:
+#        name: 
+#          - brave-browser
+#        state: present
+#
     - name: Ensure fonts directory
       ansible.builtin.file:
         path: "~{{ remote_regular_user }}/.fonts"
@@ -131,7 +199,7 @@
     #install zoxide with brew https://github.com/ajeetdsouza/zoxide
 
     - name: Check if Jetbrains Mono exists
-      ansible.builtin.shell: "ls ~{{ remote_regular_user }}/.fonts/JetBrainsMonoNerd*FontMono*"
+      ansible.builtin.shell: "ls ~/.fonts/JetBrainsMonoNerdFont*"
       register: jetbrains_mono_exists
       ignore_errors: true
       changed_when: false
@@ -148,4 +216,5 @@
   #@todo instal posting 
   #@todo instal lazydocker 
   #@todo install dua
-  
+        #@todo install ollama??
+        #@todo install nvm (node version manager)
