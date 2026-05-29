@@ -92,6 +92,7 @@
               - sesh
               - zoxide
               - gonzo
+              - lazydocker
             update_homebrew: true
       become: true
       become_user: "{{ remote_regular_user }}"

@@ -4,12 +4,18 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
+[".tmux/themes/tmux-everforest"]
+    type = "git-repo"
+    url = "https://github.com/jthxdev/tmux-everforest.git"
 [".tmux/plugins/catppuccin/tmux"]
     type = "git-repo"
     url = "https://github.com/catppuccin/tmux.git"
 [".tmux/plugins/tmux-battery"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tmux-battery.git"
+[".config/alacritty/themes"]
+    type = "git-repo"
+    url = "https://github.com/alacritty/alacritty-theme.git"
 [".tmux/plugins/tmux-cpu"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tmux-cpu.git"
