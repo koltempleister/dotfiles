@@ -21,21 +21,10 @@
           ansible.builtin.apt:
             name:
               - build-essential
-              - curl
-              - git
-              - lazygit
               - tar
               - alacritty
-              - btop
-              - vim
-              - ripgrep
-              - zsh
-              - fzf
-              - tmux
               - make
               - patch
-              - ranger
-              - nethogs
               - inkscape
             state: present
             update_cache: yes
@@ -88,11 +77,22 @@
         - name: install packages
           community.general.homebrew:
             name:
+              - curl
+              - git
+              - lazygit
               - nvim
               - sesh
               - zoxide
               - gonzo
               - lazydocker
+              - ranger
+              - nethogs
+              - zsh
+              - fzf
+              - tmux
+               - btop
+              - vim
+              - ripgrep
             update_homebrew: true
       become: true
       become_user: "{{ remote_regular_user }}"
