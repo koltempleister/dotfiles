@@ -1,7 +1,7 @@
 {
   "extras": [
     "lazyvim.plugins.extras.ai.claudecode",
-    "lazyvim.plugins.extras.ai.copilot-chat",
+    "lazyvim.plugins.extras.ai.copilot-native",
     "lazyvim.plugins.extras.coding.mini-comment",
     "lazyvim.plugins.extras.dap.core",
     "lazyvim.plugins.extras.lang.docker",
@@ -15,6 +15,7 @@
     "lazyvim.plugins.extras.lang.tailwind",
     "lazyvim.plugins.extras.lang.vue",
     "lazyvim.plugins.extras.test.core",
+    "lazyvim.plugins.extras.ui.treesitter-context",
     "lazyvim.plugins.extras.util.chezmoi"
   ],
   "install_version": 8,

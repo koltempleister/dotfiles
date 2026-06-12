@@ -16,6 +16,12 @@
 [".config/alacritty/themes"]
     type = "git-repo"
     url = "https://github.com/alacritty/alacritty-theme.git"
+[".phpenv"]
+    type = "git-repo"
+    url = "https://github.com/phpenv/phpenv.git"
+[".phpenv/plugins/php-build"]
+    type = "git-repo"
+    url = "https://github.com/php-build/php-build.git"
 [".tmux/plugins/tmux-cpu"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tmux-cpu.git"

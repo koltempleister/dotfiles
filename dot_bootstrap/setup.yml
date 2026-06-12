@@ -17,10 +17,12 @@
         remote_regular_user: jevdheyd 
     - name: install packages with error handling
       block:  
-        - name: Install packages
+        - name: Install apt packages
           ansible.builtin.apt:
             name:
               - build-essential
+              - git
+              - curl 
               - tar
               - alacritty
               - make
@@ -77,8 +79,6 @@
         - name: install packages
           community.general.homebrew:
             name:
-              - curl
-              - git
               - lazygit
               - nvim
               - sesh
@@ -90,7 +90,7 @@
               - zsh
               - fzf
               - tmux
-               - btop
+              - btop
               - vim
               - ripgrep
             update_homebrew: true
