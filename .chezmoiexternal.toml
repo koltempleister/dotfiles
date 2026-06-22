@@ -24,7 +24,7 @@
     url = "https://github.com/php-build/php-build.git"
 [".tmux/plugins/tmux-continuum"]
     type = "git-repo"
-    url = "https://github.com/tmux-plugins/tmux-contimuum.git"
+    url = "https://github.com/tmux-plugins/tmux-continuum.git"
 [".tmux/plugins/tmux-resurrect"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tmux-resurrect.git"
