@@ -68,16 +68,6 @@
         create: true
         mode: '0644'
 
-    #- name: Verify that brew path works in this run
-    #  ansible.builtin.command: "{{ brew_dir }}/bin/brew doctor"
-    #  changed_when: false
-    #  become: true
-    #  become_user: "{{ remote_regular_user }}"
-    - name: Install cask
-      community.general.homebrew_cask:
-        name: jetbrains-toolbox
-        state: present
-
     - name: Install Brew packages
       block:  
         - name: install packages
