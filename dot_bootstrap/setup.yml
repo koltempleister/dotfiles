@@ -87,6 +87,7 @@
               - btop
               - vim
               - ripgrep
+              - bitwarden-cli
             update_homebrew: true
       become: true
       become_user: "{{ remote_regular_user }}"
