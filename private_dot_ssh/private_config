@@ -1,0 +1,7 @@
+Host azure ssh.dev.azure.com 
+   HostName ssh.dev.azure.com
+   User git
+   PubkeyAuthentication=yes
+   PubkeyAcceptedAlgorithms +ssh-rsa
+   HostkeyAlgorithms +ssh-rsa
+   AddKeysToAgent no

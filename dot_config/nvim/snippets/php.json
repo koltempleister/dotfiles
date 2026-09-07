@@ -1,0 +1,20 @@
+{
+  "New PHP Class Template": {
+    "prefix": "phpclass",
+    "body": [
+      "<?php",
+      "",
+      "namespace ${1:App}\\\\${2:Models};",
+      "",
+      "class ${3:ClassName} {",
+      "    // ${4:Properties}",
+      "",
+      "    public function __construct() {",
+      "        // ${5:Constructor logic}",
+      "    }",
+      "}",
+      ""
+    ],
+    "description": "Standard PHP Class Template"
+  }
+}
