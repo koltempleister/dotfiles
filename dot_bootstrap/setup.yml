@@ -22,7 +22,6 @@
         name:
           - "@Development-tools"
           - "@C Development Tools and Libraries"
-          - @c-development
           - git
           - curl
           - tar
