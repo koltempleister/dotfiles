@@ -5,10 +5,6 @@
   connection: local
   gather_facts: true
   vars:
-    flyctl_version: "0.1.130"
-    pulumi_version: "v3.94.2"
-
-  vars:
     # Defines the default system path where Linuxbrew is installed
     brew_dir: "/home/linuxbrew/.linuxbrew"
 
@@ -20,7 +16,7 @@
     - name: Install packages
       ansible.builtin.dnf:
         name:
-          - "@Development-tools"
+          - "@Development Tools"
           - "@C Development Tools and Libraries"
           - git
           - curl
@@ -34,36 +30,38 @@
 
     - name: Check if Linuxbrew is already installed
       ansible.builtin.stat:
-        path: "{{ brew_dir }}/bin/brew"
+        path: "/home/linuxbrew/.linuxbrew/bin/brew"
       register: brew_stat
 
-    - name: Create Homebrew directory
-      ansible.builtin.file:
-        path: "/home/linuxbrew/.linuxbrew"
-        state: directory
-        owner: "{{ remote_regular_user}}"
-        group: "{{ remote_regular_user }}"
-        mode: '0755'
-      when: not brew_stat.stat.exists
-      become: true
+#    - name: Create Homebrew directory
+#      ansible.builtin.file:
+#        path: "/home/linuxbrew/.linuxbrew"
+#        state: directory
+#        owner: "{{ remote_regular_user}}"
+#        group: "{{ remote_regular_user }}"
+#        mode: '0755'
+#      become: true
 
     - name: Securely download and run the official Homebrew installation script
       ansible.builtin.shell: |
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      args:
+        creates: /home/linuxbrew/.linuxbrew/bin/brew
       environment:
         NONINTERACTIVE: "1"
-      when: not brew_stat.stat.exists
       become: true
       become_user: "{{ remote_regular_user  }}"
 
-    - name: Ensure Linuxbrew environment variables are added to shell profile
-      ansible.builtin.blockinfile:
-        path: "~/.bashrc"
-        block: |
-          eval "$({{ brew_dir }}/bin/brew shellenv)"
-        marker: "# {mark} ANSIBLE MANAGED BLOCK: Linuxbrew shell env"
-        create: true
-        mode: '0644'
+
+    - name: Configure Linuxbrew PATH
+      ansible.builtin.lineinfile:
+        path: ~/.bash_profile
+        line: 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"'
+        create: yes
+        state: present
+
+    - name: Reload Bash Profile
+      ansible.builtin.shell: source ~/.bash_profile
 
     - name: Install Brew packages
       block:
@@ -72,6 +70,7 @@
             name:
               - lazygit
               - nvim
+              - lazysql
               - sesh
               - zoxide
               - gonzo
@@ -151,14 +150,9 @@
     - name: Install Flatpak packages
       community.general.flatpak:
         name:
-          - com.obsproject.Studio
-          - org.videolan.VLC
-          - org.tenacityaudio.Tenacity
           - md.obsidian.Obsidian
           - org.gimp.GIMP
           - rest.insomnia.Insomnia
-          - com.github.johnfactotum.Foliate
-          - org.gnome.meld
           - org.sqlitebrowser.sqlitebrowser
         state: present
 
