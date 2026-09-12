@@ -1,8 +1,12 @@
 #!/bin/bash
+SCRIPT_PATH=~.oh-my-zsh-custom 
+WIKI_PATH=~/wiki
 
-echo 'login'
-export BW_SESSION=$(bw login {{ .bitwardenEmail }} --raw)
+if [ ! -d "$SCRIPT_PATH"  || ! -d "$WIKI_PATH" ];then
+  echo 'login'
+  # export BW_SESSION=$(bw login {{ .bitwardenEmail }} --raw)
 
-echo 'clone repos'
-git clone https://koltempleister:{{ (bitwarden "item" "github.com general repo token").login.password }}@github.com/koltempleister/oh-my-zsh-custom.git ~/.oh-my-zsh-custom 
-git clone https://koltempleister:{{ (bitwarden "item" "github.com general repo token").login.password }}@github.com/koltempleister/wiki.git ~/wiki
+  echo 'clone repos'
+  git clone https://koltempleister:{{ (bitwarden "item" "github.com general repo token").login.password }}@github.com/koltempleister/oh-my-zsh-custom.git $SCRIPT_PATH 
+  git clone https://koltempleister:{{ (bitwarden "item" "github.com general repo token").login.password }}@github.com/koltempleister/wiki.git $WIKI_PATH
+fi  
