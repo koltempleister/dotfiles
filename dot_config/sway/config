@@ -47,7 +47,6 @@ gaps outer 10
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-output DP-1 resolution 3840x2160 position 0,0
 ### Idle configuration
 #
 # Example configuration:
@@ -76,17 +75,25 @@ output DP-1 resolution 3840x2160 position 0,0
 # Read `man 5 sway-input` for more information about this section.
 
 ##Run default apps
-workspace 1 
 
-exec brave-browser
-exec alacritty
+exec_always swaymsg "workspace 1; exec brave-browser" 
+exec_always swaymsg "workspace 1; exec alacritty" 
+exec_always swaymsg "workspace 1; exec alacritty -e lazysql" 
 
-workspace 2 
+exec_always swaymsg "workspace 2; exec chromium-browser --app=https://mail.proton.me" 
+exec_always swaymsg "workspace 2; exec chromium-browser --app=https://mail.google.com" 
+exec_always swaymsg "workspace 2; exec chromium-browser --app=https://outlook.cloud.microsoft" 
+exec_always swaymsg "workspace 2; exec chromium-browser --app=https://teams.cloud.microsoft" 
 
-exec chromium-browser --app=https://mail.proton.me
-exec chromium-browser --app=https://mail.google.com
-exec chromium-browser --app=https://outlook.cloud.microsoft
-exec chromium-browser --app=https://teams.cloud.microsoft
+exec_always swaymsg "workspace 3; exec flatpak run md.obsidian.Obsidian" 
+
+
+# exec chromium-browser --app=https://mail.proton.me
+# exec chromium-browser --app=https://mail.google.com
+# exec chromium-browser --app=https://outlook.cloud.microsoft
+# exec chromium-browser --app=https://teams.cloud.microsoft
+
+
 
 
 ### Key bindings
