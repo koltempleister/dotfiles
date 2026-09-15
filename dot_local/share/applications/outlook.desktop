@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Microsoft Outlook 
+Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/launch_webapp.zsh https://outlook.cloud.microsoft
+Type=Application
+Icon=utilities-terminal
+Terminal=false

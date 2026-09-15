@@ -29,8 +29,13 @@ set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
 ##no borders 
 default_border pixel 
+# Syntax: client.<state> <border> <background> <text> [<indicator> <child_border>]
+client.focused #E67E80 #E67E80 #D3C6AA
 
 ### Output configuration
+##init kanshi
+exec kanshi
+
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg, jxl-pixbuf-loader
@@ -75,28 +80,33 @@ gaps outer 10
 # Read `man 5 sway-input` for more information about this section.
 
 ##Run default apps
-
-exec_always swaymsg "workspace 1; exec brave-browser" 
-exec_always swaymsg "workspace 1; exec alacritty" 
-exec_always swaymsg "workspace 1; exec alacritty -e lazysql" 
-
-exec_always swaymsg "workspace 2; exec chromium-browser --app=https://mail.proton.me" 
-exec_always swaymsg "workspace 2; exec chromium-browser --app=https://mail.google.com" 
-exec_always swaymsg "workspace 2; exec chromium-browser --app=https://outlook.cloud.microsoft" 
-exec_always swaymsg "workspace 2; exec chromium-browser --app=https://teams.cloud.microsoft" 
-
-exec_always swaymsg "workspace 3; exec flatpak run md.obsidian.Obsidian" 
+exec swaymsg "workspace 2; exec chromium-browser --app=https://mail.proton.me; split vertical;"
+exec sleep 0.3s; swaymsag "exec chromium-browser --app=https://mail.google.com" 
 
 
+
+# exec ~/.config/sway/layout
+# exec swaymsg "workspace 1; exec brave-browser" 
+# exec alacritty" 
+# exec alacritty -e lazysql" 
+# sleep
+# exec swaymsg "workspace 2; exec chromium-browser --app=https://mail.proton.me" 
+# exec chromium-browser --app=https://calendar.google.com" 
+# exec chromium-browser --app=https://outlook.cloud.microsoft" 
+# exec chromium-browser --app=https://outlook.cloud.microsoft" 
+# exec chromium-browser --app=https://teams.cloud.microsoft" 
+#
+# exec swaymsg "workspace 3; exec flatpak run md.obsidian.Obsidian" 
+#
+#
 # exec chromium-browser --app=https://mail.proton.me
 # exec chromium-browser --app=https://mail.google.com
 # exec chromium-browser --app=https://outlook.cloud.microsoft
 # exec chromium-browser --app=https://teams.cloud.microsoft
+#
 
 
-
-
-### Key bindings
+## Key bindings
 #
 # Basics:
 #

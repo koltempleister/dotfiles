@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Proton mail 
+Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/launch_webapp.zsh https://mail.proton.me
+Type=Application
+Icon=utilities-terminal
+Terminal=false

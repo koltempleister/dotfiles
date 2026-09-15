@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Gmail 
+Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/launch_webapp.zsh https://mail.google.com
+Type=Application
+Icon=utilities-terminal
+Terminal=false
+
+

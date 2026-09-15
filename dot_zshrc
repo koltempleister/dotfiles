@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
  #Path to your oh-my-zsh installation.
 
@@ -100,36 +100,37 @@ source $HOME/.oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
-export SONAR_ROOT=$HOME/sonar-scanner-7.2.0.5079-linux-x64
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/i386-linux-gnu
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-export PATH="$HOME/.symfony/bin:$PATH"
+#export SONAR_ROOT=$HOME/sonar-scanner-7.2.0.5079-linux-x64
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/i386-linux-gnu
+#export PATH="$PATH:$HOME/.config/composer/vendor/bin"
+#export PATH="$HOME/.symfony/bin:$PATH"
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-export PATH=$PATH:~/selenium/chromedriver
-export PATH=$PATH:/snap/bin/firefox
-export PATH=$PATH:/home/jevdheyd/bin/git-remote-hg
-export PATH="/home/jevdheyd/.lando/bin${PATH+:$PATH}"; #landopath
-export PATH="$PATH:$HOME/.local/share/yabridge/home/jevdheyd/.jdks/openjdk-25.0.1"
-export PATH="$PATH:$HOME/.local/bin/dagger"
-export PATH="$PATH:$HOME/bin/chezmoi"
-export PATH="$HOME/.devcontainers/bin:$PATH"
+export PATH=~/selenium/chromedriver:$PATH
+#export PATH=$PATH:/snap/bin/firefox
+#export PATH=$PATH:/home/jevdheyd/bin/git-remote-hg
+#export PATH="/home/jevdheyd/.lando/bin${PATH+:$PATH}"; #landopath
+#export PATH="$PATH:$HOME/.local/share/yabridge/home/jevdheyd/.jdks/openjdk-25.0.1"
+#export PATH="$PATH:$HOME/.local/bin/dagger"
+export PATH="$HOME/bin/chezmoi:$PATH"
+#export PATH="$HOME/.devcontainers/bin:$PATH"
+export PATH="$HOME/.config/sway/scripts/sway-toolwait:$PATH"
 
 #PYENV
 #https://medium.com/swlh/a-guide-to-python-virtual-environments-8af34aa106ac#9207
-export PYENV_ROOT=$HOME/.pyenv/
-export PATH="$PATH:$PYENV_ROOT/bin"
-export PATH="$PATH:$SONAR_ROOT/bin"
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+#export PYENV_ROOT=$HOME/.pyenv/
+#export PATH="$PATH:$PYENV_ROOT/bin"
+#export PATH="$PATH:$SONAR_ROOT/bin"
+#export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 #eval "$(pyenv init - )"
 #eval "$(pyenv virtualenv-init - )"
 
 #homebrew 
-test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
-
-
+# test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+# test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
+#
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 #dagger autocompletio
 autoload -U compinit
 compinit -i

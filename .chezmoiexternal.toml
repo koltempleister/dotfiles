@@ -34,4 +34,3 @@
 ["wiki"]
     type = "git-repo"
     url = "git@github.com:koltempleister/wiki.git"
-

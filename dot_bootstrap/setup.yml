@@ -12,6 +12,9 @@
     - name: Get my user
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+    # - name: Enable mise COPR repository
+    #   community.general.copr:
+        # name: jdxcode/mise
 
     - name: Install packages
       ansible.builtin.dnf:
@@ -25,8 +28,18 @@
           - alacritty
           - make
           - patch
-
+          - bison
+          - autoconf
         state: present
+
+    - name: Uninstall mise
+      ansible.builtin.dnf:
+        name:
+          - mise
+          - goloang
+          - libxml2-devel
+          - sqlite-devel
+        state: absent
 
     - name: Check if Linuxbrew is already installed
       ansible.builtin.stat:
@@ -177,3 +190,15 @@
         remote_src: true
         mode: "0755"
         owner: "{{ remote_regular_user }}"
+
+    #https://devctrl.blog/posts/sway-toolwait-tame-your-autostart-app-layout/  
+    - name: Create directory
+      ansible.builtin.file:
+        path: /home/jevdheyd/.config/sway/scripts
+        state: directory
+        mode: '0755'
+    - name: Download say toolwait script and make executable
+      ansible.builtin.get_url:
+        url: https://gitlab.com/wef/dotfiles/-/raw/master/bin/gui-toolwait
+        dest: /home/jevdheyd/.config/sway/scripts/sway-toolwait
+        mode: '0755'  # Sets permissions to rwxr-xr-x (executable)
