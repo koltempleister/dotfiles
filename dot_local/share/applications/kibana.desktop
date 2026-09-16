@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Kibana (atlas) 
-Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/launch_webapp.zsh https://atlas.vub.be
+Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/webapp/launch_webapp.zsh https://atlas.vub.be
 Type=Application
 Icon=utilities-terminal
 Terminal=false

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Azure pipelines 
-Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/launch_webapp.zsh https://dev.azure.com/VUB-ICT/Directie%20ICT/_build
+Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/webapp/launch_webapp.zsh https://dev.azure.com/VUB-ICT/Directie%20ICT/_build
 Type=Application
 Icon=utilities-terminal
 Terminal=false
