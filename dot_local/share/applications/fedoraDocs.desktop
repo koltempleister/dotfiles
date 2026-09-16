@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Fedora documentation 
+Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/launch_webapp.zsh https://docs.fedoraproject.org/en-US/docs/
+Type=Application
+Icon=utilities-terminal
+Terminal=false
+
+

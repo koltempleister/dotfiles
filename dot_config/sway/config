@@ -1,4 +1,5 @@
 # Default config for sway
+# config
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
@@ -43,7 +44,7 @@ exec kanshi
 output * bg ~/wallpapers/1276372.jpg fill
 
 gaps inner 10
-gaps outer 10
+gaps outer 0
 #
 #
 # Example configuration:

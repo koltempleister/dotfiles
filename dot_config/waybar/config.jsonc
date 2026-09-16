@@ -16,6 +16,7 @@
     "clock"
   ],
   "modules-right": [
+    "keyboard-state",
     "tray",
     "idle_inhibitor",
     "pulseaudio",
@@ -26,7 +27,8 @@
     "temperature",
     "backlight",
     // "sway/language",
-    "battery"
+    "battery",
+    "custom/dunst"
     // "clock",
   ],
   // Modules configuration
@@ -46,6 +48,15 @@
   //         "default": ""
   //     }
   // },
+  "custom/dunst": {
+    "format": "🔔 {}",
+    "tooltip": false,
+    "exec-if": "which dunstctl",
+    "exec": "if dunstctl is-paused; then echo 'Silenced'; else echo 'Active'; fi",
+    "return-type": "json",
+    "on-click": "dunstctl toggle-paused",
+    "interval": 5
+  },
   "keyboard-state": {
     "numlock": true,
     "capslock": true,
@@ -103,7 +114,7 @@
   },
   "tray": {
     // "icon-size": 21,
-    "spacing": 10,
+    "spacing": 10
     // "icons": {
     //   "blueman": "bluetooth",
     //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
@@ -111,8 +122,9 @@
   },
   "clock": {
     // "timezone": "America/New_York",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "{:%Y-%m-%d}"
+    //"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    //"format-alt": "{:%Y-%m-%d}"
+    "format": "{0:%A %e %B} {0:%H:%M} "
   },
   "cpu": {
     "format": "{usage}% ",
