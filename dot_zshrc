@@ -131,6 +131,7 @@ export PATH="$HOME/.config/sway/scripts/sway-toolwait:$PATH"
 # echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 #
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(mise activate zsh)"   
 #dagger autocompletio
 autoload -U compinit
 compinit -i
