@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=todo
+Exec=/home/jevdheyd/.oh-my-zsh-custom/scripts/webapp/launch_webapp.zsh "https://to-do.live.com/tasks/?ru=https%%3A%%2F%%2Fto-do.office.com%%2Ftasks%%2F"
+Type=Application
+Icon=utilities-terminal
+Terminal=false

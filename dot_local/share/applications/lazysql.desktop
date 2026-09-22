@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=lazysql
+Exec=/usr/bin/alacritty -e lazysql
+Type=Application
+Terminal=false
+Icon=utilities-terminal
