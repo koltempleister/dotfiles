@@ -12,9 +12,13 @@
     - name: Get my user
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
-    # - name: Enable mise COPR repository
-    #   community.general.copr:
-        # name: jdxcode/mise
+    - name: Enable mise COPR repository
+      community.general.copr:
+        name: jdxcode/mise
+
+    - name: Enable zellij COPR repository
+      community.general.copr:
+        name: varlad/zellij
 
     - name: Install packages
       ansible.builtin.dnf:
@@ -30,16 +34,30 @@
           - patch
           - bison
           - autoconf
+          # -mise packages
+          - mise
+          - libxml2-devel
+          - openssl-devel 
+          - sqlite-devel  
+          - libcurl-devel 
+          - libpng-devel 
+          - gd-devel 
+          - libicu-devel 
+          - oniguruma-devel
+          - libedit-devel
+          - pkg-config
+          #-end mise packages
+          - inkscape
+          - zellij
         state: present
 
-    - name: Uninstall mise
-      ansible.builtin.dnf:
-        name:
-          - mise
-          - goloang
-          - libxml2-devel
-          - sqlite-devel
-        state: absent
+    # - name: Uninstall stuff
+    #   ansible.builtin.dnf:
+    #     name:
+    #       - golang
+    #       - libxml2-devel
+    #       - sqlite-devel
+    #     state: absent
 
     - name: Check if Linuxbrew is already installed
       ansible.builtin.stat:
@@ -97,10 +115,17 @@
               - vim
               - ripgrep
               - bitwarden-cli
+              - symfony-cli
+              - jiratui
             update_homebrew: true
+        - name: Install casks
+          community.general.homebrew_cask:
+            name: bahaaio/pomo/pomo
+            state: present
       become: true
       become_user: "{{ remote_regular_user }}"
 
+    
     - name: Change shell to zsh
       ansible.builtin.user:
         name: "{{ remote_regular_user }}"
