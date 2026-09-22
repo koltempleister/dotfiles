@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=lazysql
-Exec=/usr/bin/alacritty -e lazysql
+Exec=alacritty --hold -e /home/linuxbrew/.linuxbrew/bin/lazysql
 Type=Application
 Terminal=false
 Icon=utilities-terminal
