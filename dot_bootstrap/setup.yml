@@ -49,6 +49,7 @@
           #-end mise packages
           - inkscape
           - zellij
+          - dua-cli
         state: present
 
     # - name: Uninstall stuff
@@ -118,14 +119,9 @@
               - symfony-cli
               - jiratui
             update_homebrew: true
-        - name: Install casks
-          community.general.homebrew_cask:
-            name: bahaaio/pomo/pomo
-            state: present
       become: true
       become_user: "{{ remote_regular_user }}"
 
-    
     - name: Change shell to zsh
       ansible.builtin.user:
         name: "{{ remote_regular_user }}"
