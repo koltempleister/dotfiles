@@ -50,6 +50,7 @@
           - inkscape
           - zellij
           - dua-cli
+          - socat #dependency to sandbox claude
         state: present
 
     # - name: Uninstall stuff
