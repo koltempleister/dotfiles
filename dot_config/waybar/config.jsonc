@@ -18,6 +18,7 @@
   "modules-right": [
     "keyboard-state",
     "tray",
+    "custom/notifications",
     "idle_inhibitor",
     "pulseaudio",
     "network",
@@ -27,8 +28,7 @@
     "temperature",
     "backlight",
     // "sway/language",
-    "battery",
-    "custom/dunst"
+    "battery"
     // "clock",
   ],
   // Modules configuration
@@ -48,16 +48,21 @@
   //         "default": ""
   //     }
   // },
-  "custom/dunst": {
-    "format": "🔔 {}",
+  "custom/notifications": {
+    "format": "{icon}",
+    "format-icons": {
+        "active": "🔔",
+        "paused": "🔕"
+    },
     "tooltip": false,
-    "exec-if": "which dunstctl",
-    "exec": "if dunstctl is-paused; then echo 'Silenced'; else echo 'Active'; fi",
+    "exec-if": "command -v dunstctl",
+    "exec": "if [ \"$(dunstctl is-paused)\" = true ]; then echo '{\"alt\":\"paused\",\"class\":\"paused\"}'; else echo '{\"alt\":\"active\",\"class\":\"active\"}'; fi",
     "return-type": "json",
-    "on-click": "dunstctl toggle-paused",
+    "on-click": "dunstctl set-paused toggle && pkill -RTMIN+8 waybar",
+    "signal": 8,
     "interval": 5
-  },
-  "keyboard-state": {
+},
+    "keyboard-state": {
     "numlock": true,
     "capslock": true,
     "format": "{name} {icon}",
@@ -242,9 +247,6 @@
     "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
     "menu-actions": {
       "shutdown": "shutdown",
-      "reboot": "reboot",
-      "suspend": "systemctl suspend",
-      "hibernate": "systemctl hibernate"
-    }
+     }
   }
 }
