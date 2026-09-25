@@ -1,26 +1,26 @@
-profile docker_work_home{
+profile home {
     output eDP-1 disable
     output DVI-I-1 enable 
 }
-profile docker_work_home2{
+profile home2 {
     output eDP-1 disable
     output DVI-I-2 enable 
 }
 
-profile dock_work_campus {
-  output DVI-I-2 enable 4480,0
+profile work {
+  output DVI-I-2 enable position 4480,0
   output HDMI-A-1 enable position 1920,0
   output eDP-1 enable position 0,0 
 
-  exec swaymsg workspace 2 output HDMI-A-1
-  exec swaymsg workspace 3 output HDMI-A-1
-  exec swaymsg workspace 4 output HDMI-A-1
-  exec swaymsg workspace 5 output HDMI-A-1
+  exec "swaymsg workspace 2 output HDMI-A-1, workspace 2, move workspace to output"
+  exec "swaymsg workspace 3 output HDMI-A-1, workspace 3, move workspace to output"
+  exec "swaymsg workspace 4 output HDMI-A-1, workspace 4, move workspace to output"
+  exec "swaymsg workspace 5 output HDMI-A-1, workspace 5, move workspace to output"
 
-  exec swaymsg workspace 6 output DVI-I-2
+  exec "swaymsg workspace 6 output DVI-I-2, workspace 6, move workspace to output"
   
 }
 
-profile laptop {
+profile undocked {
   output eDP-1 enable position 0,0
 }
