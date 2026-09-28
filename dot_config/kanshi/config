@@ -21,6 +21,21 @@ profile work {
   
 }
 
+profile work2 {
+  output DVI-I-3 enable position 3840,0
+  output DVI-I-2 enable position 1920,0
+  output eDP-1 enable position 0,0 
+
+  exec "swaymsg workspace 2 output DVI-I-2, workspace 2, move workspace to output"
+  exec "swaymsg workspace 3 output DVI-I-2, workspace 3, move workspace to output"
+  exec "swaymsg workspace 4 output DVI-I-2, workspace 4, move workspace to output"
+  exec "swaymsg workspace 5 output DVI-I-2, workspace 5, move workspace to output"
+
+  exec "swaymsg workspace 6 output DVI-I-3, workspace 6, move workspace to output"
+  
+}
+
+
 profile undocked {
   output eDP-1 enable position 0,0
 }
