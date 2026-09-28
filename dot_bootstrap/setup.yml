@@ -189,6 +189,7 @@
           - org.gimp.GIMP
           - rest.insomnia.Insomnia
           - org.sqlitebrowser.sqlitebrowser
+          - org.signal.Signal
         state: present
 
     - name: Ensure fonts directory

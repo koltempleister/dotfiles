@@ -33,6 +33,8 @@ default_border pixel
 # Syntax: client.<state> <border> <background> <text> [<indicator> <child_border>]
 client.focused #E67E80 #E67E80 #D3C6AA
 
+
+
 ### Output configuration
 ##init kanshi
 exec kanshi

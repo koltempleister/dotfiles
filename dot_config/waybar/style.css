@@ -1,7 +1,6 @@
 * {
     /* font-family: 'Noto Sans Mono', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace; */
   font-family: "JetBrainsMono Nerd Font";
-    font-size: 13px;
 }
 
 window#waybar {
@@ -55,9 +54,10 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding: 0 8px;
     background-color: transparent;
     color: #D3C6AA;
+    font-size: 16px;
 }
 
 #workspaces button:hover {
@@ -103,7 +103,6 @@ button:hover {
 #window,
 #workspaces {
     margin: 0 10px;
-    font-size:15px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -237,6 +236,8 @@ label:focus {
 
 #tray {
     /* background-color: #2980b9; */
+  padding-right:0px;
+font-size:12px; color: #fff;
 }
 
 #tray > .passive {
