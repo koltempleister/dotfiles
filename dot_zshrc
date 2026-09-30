@@ -115,15 +115,22 @@ export PATH="$HOME/bin/chezmoi:$PATH"
 #export PATH="$HOME/.devcontainers/bin:$PATH"
 export PATH="$HOME/.config/sway/scripts/sway-toolwait:$PATH"
 
-#PYENV
-#https://medium.com/swlh/a-guide-to-python-virtual-environments-8af34aa106ac#9207
-#export PYENV_ROOT=$HOME/.pyenv/
-#export PATH="$PATH:$PYENV_ROOT/bin"
-#export PATH="$PATH:$SONAR_ROOT/bin"
-#export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+#NIX ENV 
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix   
 
-#eval "$(pyenv init - )"
-#eval "$(pyenv virtualenv-init - )"
+# PYENV
+# https://medium.com/swlh/a-guide-to-python-virtual-environments-8af34aa106ac#9207
+export PYENV_ROOT=$HOME/.pyenv/
+export PATH="$PATH:$PYENV_ROOT/bin"
+export PATH="$PATH:$SONAR_ROOT/bin"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+eval "$(pyenv init - )"
+eval "$(pyenv virtualenv-init - )"
 
 #homebrew 
 # test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
@@ -131,7 +138,6 @@ export PATH="$HOME/.config/sway/scripts/sway-toolwait:$PATH"
 # echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 #
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(mise activate zsh)"   
 #dagger autocompletio
 autoload -U compinit
 compinit -i

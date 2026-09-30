@@ -34,19 +34,6 @@
           - patch
           - bison
           - autoconf
-          # -mise packages
-          - mise
-          - libxml2-devel
-          - openssl-devel 
-          - sqlite-devel  
-          - libcurl-devel 
-          - libpng-devel 
-          - gd-devel 
-          - libicu-devel 
-          - oniguruma-devel
-          - libedit-devel
-          - pkg-config
-          #-end mise packages
           - inkscape
           - zellij
           - dua-cli
@@ -119,6 +106,8 @@
               - bitwarden-cli
               - symfony-cli
               - jiratui
+              - pyenv 
+              - pyenv-virtualenv
             update_homebrew: true
       become: true
       become_user: "{{ remote_regular_user }}"
