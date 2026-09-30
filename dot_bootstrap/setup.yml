@@ -179,6 +179,7 @@
           - rest.insomnia.Insomnia
           - org.sqlitebrowser.sqlitebrowser
           - org.signal.Signal
+          - com.discordapp.Discord
         state: present
 
     - name: Ensure fonts directory
