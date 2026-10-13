@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Run PHPUnit inside DDEV, mapping host paths <-> container paths for neotest.
+host_root=$(pwd)
+ctr_root=/var/www/html
+ctr_junit=.phpunit.cache/neotest-junit.xml
+junit=
+args=()
+for a in "$@"; do
+  case $a in
+  --log-junit=*)
+    junit=${a#--log-junit=}
+    args+=("--log-junit=$ctr_root/$ctr_junit")
+    ;;
+  *) args+=("${a//$host_root/$ctr_root}") ;;
+  esac
+done
+
+ddev exec vendor/bin/phpunit "${args[@]}"
+rc=$?
+
+if [[ -n $junit && -f $host_root/$ctr_junit ]]; then
+  sed "s#$ctr_root#$host_root#g" "$host_root/$ctr_junit" >"$junit"
+fi
+exit $rc
