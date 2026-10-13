@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/.env*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/secrets/**)",
+      "Read(**/credentials/**)",
+      "Read(**/.aws/**)",
+      "Read(**/.ssh/**)",
+      "Bash(**/.env/**)",
+      "Write(**/.env/**)"
+    ]
+  },
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "php-lsp@claude-plugins-official": true
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  },
+  "theme": "dark"
+}
