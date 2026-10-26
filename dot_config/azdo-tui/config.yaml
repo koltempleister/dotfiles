@@ -1,0 +1,95 @@
+# https://github.com/Elpulgo/azdo
+# ── Azure DevOps (optional; required only if you use Azure) ──────────────
+# Organization name. Required when any Azure projects are listed.
+organization: VUB-ICT
+
+# Azure DevOps project name(s).
+# Simple format:
+projects:
+  - Directie ICT
+
+
+# With display names (friendly name shown in UI):
+#   projects:
+#     - name: ugly-api-project-name
+#       display_name: My Project
+#     - name: ugly-api-project-name-2
+#       display_name: My Project 2
+
+# ── GitHub (optional; required only if you use GitHub) ───────────────────
+# One or more "owner/repo" slugs. Listing at least one enables the GitHub
+# backend. Issues become work items, PRs become pull requests, and Actions
+# runs become pipelines.
+# github:
+#   repos:
+#     - your-org/your-repo
+#     - your-org/another-repo
+#   # Label prefixes used to derive a work item's type and priority from
+#   # GitHub issue labels (case-insensitive). Defaults shown; omit to use them.
+#   type_prefix: "type:"        # e.g. "type:bug" → Bug, "type:feature" → Feature
+#   priority_prefix: "priority:" # e.g. "priority:p1" or "priority:1" → priority 1
+#   # Labels that match neither prefix are shown as tags.
+
+# Polling interval in seconds (optional, default: 60)
+polling_interval: 60
+
+# Theme (optional, default: dark)
+# Available themes: dark, gruvbox, nord, dracula, catppuccin, github, retro, monokai
+theme: gruvbox
+
+# Disable specific panes (optional, comma-separated)
+# Valid values: pullrequests, pipelines, workitems, notifications
+# At least one pane must remain enabled.
+disabled_panes: workitems
+
+# Notifications tab (on by default whenever Azure or GitHub is configured).
+# There is no notifications.enabled key — add "notifications" to
+# disabled_panes above to turn the tab off. Shared keys apply to the merged
+# feed regardless of backend; github/azure keys are provider-specific. See
+# "Notifications Configuration" below for the full reference.
+# notifications:
+#   exclude_repos: []
+#   include_repos: []
+#   exclude_reasons: []
+#   unread_only: false
+#   max_items: 0
+#   poll_interval: 0
+#   github:
+#     participating_only: false
+#     only_configured_repos: false
+#     since_days: 0
+#   azure:
+#     lookback_days: 14
+#     min_poll_interval: 300
+#     sources:
+#       review_requested: true
+#       mentioned: true
+#       assigned: true
+#       ci_failed: true
+
+# Tab labels (optional). Override the name shown for any tab, in both the tab
+# bar and the help dialog. Keys are lowercase snake_case; unset tabs keep their
+# defaults.
+# terms:
+#   pull_requests: PRs
+#   work_items: Tasks
+#   pipelines: Builds
+#   metrics: Dashboard
+
+# Metrics dashboard (opt-in, management feature). Hidden unless enabled.
+# See "Metrics Configuration" below for the full reference.
+# metrics:
+#   enabled: false
+#   interval_days: 14            # window for the Live "closed pts" column
+#   active_stale_days: 3         # dwell in Active above this flags the item
+#   rft_stale_days: 2            # dwell in Ready for Test above this flags the item
+#   wip_limit: 4                 # in-flight strictly above this marks a user overloaded
+#   run_one_shot_backfill: false # one-time /updates seed (see Features → Metrics)
+#   states:                      # your board's actual state names (case-insensitive)
+#     active: Active
+#     ready_for_test: Ready for Test
+#     closed: Closed
+#   state_labels:                # optional column-header overrides (auto-derived if omitted)
+#     active: active
+#     ready_for_test: rft
+#     closed: closed
